@@ -12,4 +12,12 @@ app.use(express.static(path.join(__dirname, 'public')))
 //use form-data (req.body)
 app.use(express.urlencoded({ extended: true }));
 
+//setup session store
+const sessionStoreConfig = require('./db/sessionStore');
+app.use(sessionStoreConfig);
+
+app.get('/', (req, res) => {
+  res.send('hello session');
+})
+
 app.listen(process.env.PORT);

@@ -1,0 +1,22 @@
+<%- include('partials/header', {title: title})%>
+
+<main class="container">
+        <h1 class="sign-up-in-heading">Sign-up to drive</h1>
+        <%- include('partials/errors')%>
+        <form action="/signup" method="POST">
+            <label for="forename"> Forename: </label>
+            <input type="text" name="forename" id="forename" value="<%= user.forename ? user.forename : '' %>">
+            <label for="surname"> Surname: </label>
+            <input type="text" name="surname" id="surname" value="<%= user.surname ? user.surname : '' %>">
+            <label for="username"> Username: </label>
+            <input type="text" name="username" id="username" value="<%= user.username ? user.username : '' %>">
+            <label for="password"> New Password: </label>
+            <input type="password" name="password" id="password">
+            <label for="pass-confirm"> Confirm Password: </label>
+            <input type="password" name="pass-confirm" id="pass-confirm">
+            <input type="submit" value="Sign-Up">
+        </form>
+        <span class="sign-in-up-switch">Already registered? <a href="/">Log in</a></span>
+</main>
+
+<%- include('partials/footer')%>

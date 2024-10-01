@@ -1,0 +1,15 @@
+<%- include('partials/header', {title: title})%>
+
+<main class="container">
+    <h1 class="sign-up-in-heading">Login to drive</h1>
+    <form action="/" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username">
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password">
+        <input type="submit" value="Login">
+    </form>
+    <span class="sign-in-up-switch">Not a Drive User yet?<a href="/signup"> Sign-up for a new account</a></span>
+</main>
+
+<%- include('partials/footer') %>

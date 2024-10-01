@@ -19,3 +19,12 @@ model Session {
   data      String   @db.Text
   expiresAt DateTime
 }
+
+model Users {
+  id       Int    @id @default(autoincrement())
+  uuid     String @default(uuid())
+  forename String @db.Text
+  surname  String @db.Text
+  username String @unique
+  password String
+}

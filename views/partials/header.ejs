@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/x-icon" href=".././favicon.ico">
+    <link rel="stylesheet" href="../../style.css">
+    <title><%= title %></title>
+</head>
+<body>
+<header>
+    <nav>
+        <h3 class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M120-160v-160h720v160H120Zm80-40h80v-80h-80v80Zm-80-440v-160h720v160H120Zm80-40h80v-80h-80v80Zm-80 280v-160h720v160H120Zm80-40h80v-80h-80v80Z"/></svg>
+            My-Drive
+        </h3>
+        <ul class="nav-top">
+            <li><a href="/drive">Drive</a> </li>
+            <% if(currentUser) { %>
+                <li><a href="/logout">Logout</a></li>
+            <% }else { %>
+                <li><a href="/">Login</a></li>
+            <% } %>
+        </ul>
+    </nav>
+</header>

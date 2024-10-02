@@ -19,6 +19,7 @@
             <li><a href="/drive">Drive</a> </li>
             <% if(currentUser) { %>
                 <li><a href="/logout">Logout</a></li>
+                <li>Hi, <%= currentUser.forename %></li>
             <% }else { %>
                 <li><a href="/">Login</a></li>
             <% } %>

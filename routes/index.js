@@ -14,6 +14,12 @@ indexRouter.post(
     successRedirect: "/drive",
   })
 );
+indexRouter.get("/login-failure", (req, res) => {
+  res.render("index", {
+    errors: [{ msg: "Invalid Username or Password" }],
+    title: "Login failed",
+  });
+});
 indexRouter.get("/logout", indexController.logout);
 indexRouter.get("/drive", isAuth, indexController.driveHomeGet);
 

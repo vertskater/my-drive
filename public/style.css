@@ -15,6 +15,7 @@
     --main-blue: #00b4d8;
     --second-blue: #48cae4;
     --third-blue: #90e0ef;
+    --light-blue: #caf0f8;
     --light: #f1faee;
     --dark: #22223b
 }
@@ -30,6 +31,24 @@ a {
     transition: color 200ms ease-in;
     &:hover {
         color: var(--dark);
+    }
+}
+a.button {
+    display: flex;
+    align-items: center;
+    padding: .8rem;
+    border: 1px solid var(--main-blue);
+    color: var(--dark);
+    border-radius: 5px;
+    width: fit-content;
+    background-color: var(--main-blue);
+    transition: background-color 200ms ease-in;
+    &:hover {
+        color: var(--main-blue);
+        background-color: var(--light);
+    }
+    svg {
+        margin-right: .3rem;
     }
 }
 
@@ -73,6 +92,32 @@ header {
     }
     .sign-up-in-heading {
         text-align: center;
+    }
+    .dir-list-container {
+        padding: 1rem;
+        margin-top: 1rem;
+        background-color: var(--light);
+        border-radius: 5px;
+        ul {
+            padding: 0;
+            li {
+                background-color: var(--light-blue);
+                border-radius: 5px;
+                list-style-type: none;
+                margin: .5rem 0;
+                svg{
+                    margin-right: .5rem;
+                }
+                .folder-link {
+                   display: flex;
+                    width: 100%;
+                    height: 100%;
+                    align-items: center;
+                    padding: 1rem;
+                }
+            }
+        }
+
     }
 }
 form {

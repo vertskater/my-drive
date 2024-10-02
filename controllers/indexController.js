@@ -2,6 +2,7 @@ const { body, validationResult } = require("express-validator");
 const asyncHandler = require("express-async-handler");
 const bcrypt = require("bcrypt");
 const dbUsers = require("../db/users");
+const dbFolders = require("../db/folder");
 
 const alphaError = "must have Alphabetical characters.";
 const lengthError = "must have at least 5 and max 30 characters";
@@ -80,9 +81,11 @@ const signUpPost = [
   }),
 ];
 
-const driveHomeGet = (req, res, next) => {
+const driveHomeGet = async (req, res, next) => {
+  const folders = await dbFolders.getRootFolders(req.user.id);
   res.render("drive-home", {
     title: "My-Drive - Home",
+    folders: folders,
   });
 };
 

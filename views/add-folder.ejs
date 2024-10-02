@@ -1,6 +1,6 @@
 <%- include('partials/header', {title: title})%>
 <main class="container">
-    <form action="/drive/add-folder" method="post">
+    <form action="<%= locals.folderId ? `/drive/${folderId}/add-folder` : '/drive/add-folder'%>" method="post">
         <label for="folderName">Name</label>
         <input type="text" name="folderName" id="folderName">
         <input type="submit" value="Save">

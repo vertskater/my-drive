@@ -4,16 +4,16 @@ const prisma = require("./prismaClient");
  * Gets new folder name, user uuid and
  *
  * @param name
- * @param userUuid
+ * @param userId @Int
  * @param parentId
  * @returns {Promise<void>}
  */
-const addFolder = async (name, userUuid, parentId = null) => {
+const addFolder = async (name, userId, parentId = null) => {
   await prisma.folder.create({
     data: {
       name: name,
       parentId: parentId,
-      ownerId: userUuid,
+      ownerId: userId,
     },
   });
 };
@@ -40,8 +40,19 @@ const getSubFolders = async (uuid) => {
   });
 };
 
+const getFolderByUuid = async (uuid) => {
+  return prisma.folder.findUnique({
+    where: {
+      uuid: uuid,
+    },
+  });
+};
+
+const getFolderHierarchy = async (id) => {};
+
 module.exports = {
   addFolder,
   getRootFolders,
   getSubFolders,
+  getFolderByUuid,
 };

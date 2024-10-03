@@ -81,6 +81,7 @@ header {
 
     }
 }
+
 .container {
     padding: 2rem 10%;
     min-height: 80vh;
@@ -117,7 +118,21 @@ header {
                 }
             }
         }
-
+        a {
+            color: var(--dark);
+            transition: background-color 200ms ease-in;
+            &:hover {
+                background-color: var(--second-blue);
+            }
+        }
+    }
+    .folder-pagination {
+        margin: 1rem .5rem;
+        display: flex;
+        align-items: center;
+        svg {
+            margin-right: .8rem;
+        }
     }
 }
 form {

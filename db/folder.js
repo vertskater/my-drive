@@ -48,11 +48,36 @@ const getFolderByUuid = async (uuid) => {
   });
 };
 
-const getFolderHierarchy = async (id) => {};
+const getFolderHierarchy = async (id) => {
+  const folder = await prisma.folder.findUnique({
+    where: { id: id },
+    select: {
+      name: true,
+      uuid: true,
+      id: true,
+      parent: {
+        select: {
+          name: true,
+          id: true,
+          uuid: true,
+        },
+      },
+    },
+  });
+  if (!folder) return [];
+  const hierarchy = [];
+  if (folder.parent) {
+    const parentHierarchy = await getFolderHierarchy(folder.parent.id);
+    hierarchy.push(...parentHierarchy);
+  }
+  hierarchy.push({ name: folder.name, id: folder.id, uuid: folder.uuid });
+  return hierarchy;
+};
 
 module.exports = {
   addFolder,
   getRootFolders,
   getSubFolders,
   getFolderByUuid,
+  getFolderHierarchy,
 };

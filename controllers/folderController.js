@@ -28,10 +28,12 @@ const showSubFolders = async (req, res, next) => {
     const folderUuid = req.params.folderId;
     const parentFolder = await dbFolder.getSubFolders(folderUuid);
     const children = parentFolder?.children || [];
+    const path = await dbFolder.getFolderHierarchy(parentFolder.id);
     res.render("drive-home", {
       title: parentFolder?.name || "Folders",
       folders: children,
       parentId: folderUuid,
+      path: path,
     });
   } catch (err) {
     next(err);

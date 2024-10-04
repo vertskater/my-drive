@@ -1,0 +1,9 @@
+<%- include('partials/header', {title: title})%>
+<main class="container">
+    <form action="/drive/<%= locals.folderId %>/edit" method="post">
+        <label for="folderName">Name</label>
+        <input type="text" name="folderName" id="folderName" value="<%= locals.name ? name : ''%>">
+        <input type="submit" value="Save">
+    </form>
+</main>
+<%- include('partials/footer')%>

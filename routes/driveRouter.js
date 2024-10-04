@@ -11,6 +11,11 @@ driveRouter.post(
   folderController.addFolderPost
 );
 
+//TODO: implement delete warning
+driveRouter.get("/:folderId/delete", isAuth, folderController.deleteFolder);
+driveRouter.get("/:folderId/edit", isAuth, folderController.editFolderGet);
+driveRouter.post("/:folderId/edit", isAuth, folderController.editFolderPost);
+
 driveRouter.get("/:folderId", isAuth, folderController.showSubFolders);
 
 module.exports = driveRouter;

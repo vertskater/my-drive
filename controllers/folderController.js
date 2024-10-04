@@ -6,7 +6,7 @@ const addFolderGet = async (req, res) => {
 };
 const addFolderPost = async (req, res, next) => {
   const userId = req.user.id;
-  //const parentFolderUuid = req.body.folderId;
+  //TODO: validate folder name;
   const folderName = req.body.folderName || "New Folder";
   const folderUuid = req.params.folderId;
   try {
@@ -40,8 +40,54 @@ const showSubFolders = async (req, res, next) => {
   }
 };
 
+const deleteFolder = async (req, res, next) => {
+  const folderUuid = req.params.folderId;
+  try {
+    const parentUuid = await dbFolder.getParentFolder(folderUuid);
+    await dbFolder.deleteDir(folderUuid);
+    parentUuid.parent
+      ? res.redirect(`/drive/${parentUuid.parent.uuid}`)
+      : res.redirect("/drive");
+  } catch (err) {
+    next(err);
+  }
+};
+
+const editFolderGet = async (req, res, next) => {
+  const folderUuid = req.params.folderId;
+  if (!folderUuid) return next();
+  try {
+    const folder = await dbFolder.getFolderByUuid(folderUuid);
+    res.render("edit-folder", {
+      title: "edit folder",
+      name: folder.name,
+      folderId: folderUuid,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+const editFolderPost = async (req, res, next) => {
+  //TODO: validate folder name
+  const { folderName } = req.body;
+  const folderUuid = req.params.folderId;
+  try {
+    const parentFolder = await dbFolder.getParentFolder(folderUuid);
+    await dbFolder.updateFolderName(folderUuid, folderName);
+    if (parentFolder.parent) {
+      return res.redirect(`/drive/${parentFolder.parent?.uuid}`);
+    }
+    res.redirect("/drive");
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   addFolderGet,
   addFolderPost,
   showSubFolders,
+  deleteFolder,
+  editFolderGet,
+  editFolderPost,
 };

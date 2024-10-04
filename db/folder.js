@@ -74,10 +74,45 @@ const getFolderHierarchy = async (id) => {
   return hierarchy;
 };
 
+const getParentFolder = async (uuid) => {
+  return prisma.folder.findUnique({
+    where: {
+      uuid: uuid,
+    },
+    select: {
+      parent: {
+        select: {
+          uuid: true,
+        },
+      },
+    },
+  });
+};
+
+const deleteDir = async (uuid) => {
+  await prisma.folder.delete({
+    where: {
+      uuid: uuid,
+    },
+  });
+};
+const updateFolderName = async (uuid, name) => {
+  await prisma.folder.update({
+    where: {
+      uuid: uuid,
+    },
+    data: {
+      name: name,
+    },
+  });
+};
 module.exports = {
   addFolder,
   getRootFolders,
   getSubFolders,
   getFolderByUuid,
   getFolderHierarchy,
+  getParentFolder,
+  deleteDir,
+  updateFolderName,
 };

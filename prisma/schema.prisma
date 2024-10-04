@@ -36,7 +36,7 @@ model Folder {
   uuid     String   @unique @default(uuid())
   name     String
   parentId Int? // For subfolders, can be null for root folders
-  parent   Folder?  @relation("FolderToParent", fields: [parentId], references: [id])
+  parent   Folder?  @relation("FolderToParent", fields: [parentId], references: [id], onDelete: Cascade)
   children Folder[] @relation("FolderToParent")
   ownerId  Int
   owner    Users    @relation("UserFolders", fields: [ownerId], references: [id])

@@ -1,4 +1,5 @@
 const dbFolder = require("../db/folder");
+const dbFiles = require("../db/files");
 
 const addFolderGet = async (req, res) => {
   const folderId = req.params.folderId || null;
@@ -29,11 +30,14 @@ const showSubFolders = async (req, res, next) => {
     const parentFolder = await dbFolder.getSubFolders(folderUuid);
     const children = parentFolder?.children || [];
     const path = await dbFolder.getFolderHierarchy(parentFolder.id);
+    const files = await dbFiles.getFilesSubDir(parentFolder.id, req.user.id);
+    console.log(files);
     res.render("drive-home", {
       title: parentFolder?.name || "Folders",
       folders: children,
       parentId: folderUuid,
       path: path,
+      files: files,
     });
   } catch (err) {
     next(err);

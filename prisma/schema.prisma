@@ -44,12 +44,12 @@ model Folder {
 }
 
 model File {
-  id        Int    @id @default(autoincrement())
-  uuid      String @default(uuid())
+  id        Int     @id @default(autoincrement())
+  uuid      String  @default(uuid())
   name      String
   cloudlink String
-  folderId  Int
-  folder    Folder @relation("FolderFiles", fields: [folderId], references: [id])
+  folderId  Int?
+  folder    Folder? @relation("FolderFiles", fields: [folderId], references: [id])
   ownerId   Int
-  owner     Users  @relation("UserFiles", fields: [ownerId], references: [id])
+  owner     Users   @relation("UserFiles", fields: [ownerId], references: [id])
 }

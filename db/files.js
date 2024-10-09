@@ -1,12 +1,15 @@
 const prisma = require("./prismaClient");
 
-const saveSingleFile = async (file, userId, folderId = null) => {
+const saveSingleFile = async (file, userId, supaBase, folderId = null) => {
+  console.log(supaBase);
   await prisma.file.create({
     data: {
       name: file.originalname,
-      cloudlink: file.path,
+      cloudPath: supaBase.path,
+      cloudId: supaBase.id,
       folderId: folderId,
       ownerId: userId,
+      size: file.size,
     },
   });
 };
@@ -28,8 +31,17 @@ const getFilesSubDir = async (folderId, ownerId) => {
   });
 };
 
+const getFileByUuid = async (uuid) => {
+  return prisma.file.findUnique({
+    where: {
+      uuid: uuid,
+    },
+  });
+};
+
 module.exports = {
   saveSingleFile,
   getRootFiles,
   getFilesSubDir,
+  getFileByUuid,
 };

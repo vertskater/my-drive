@@ -31,7 +31,6 @@ const showSubFolders = async (req, res, next) => {
     const children = parentFolder?.children || [];
     const path = await dbFolder.getFolderHierarchy(parentFolder.id);
     const files = await dbFiles.getFilesSubDir(parentFolder.id, req.user.id);
-    console.log(files);
     res.render("drive-home", {
       title: parentFolder?.name || "Folders",
       folders: children,

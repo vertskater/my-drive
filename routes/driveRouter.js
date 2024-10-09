@@ -1,7 +1,8 @@
 const driveRouter = require("express").Router();
 const { isAuth } = require("./authMiddleware");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+//const upload = multer({ dest: "uploads/" });
+const upload = multer({ storage: multer.memoryStorage() });
 
 const folderController = require("../controllers/folderController");
 driveRouter.get("/add-folder", isAuth, folderController.addFolderGet);
@@ -14,6 +15,7 @@ driveRouter.post(
 );
 //file upload
 const fileController = require("../controllers/fileController");
+
 driveRouter.get("/upload-file", isAuth, fileController.uploadFileGet);
 driveRouter.post(
   "/upload-file",
@@ -36,7 +38,16 @@ driveRouter.get("/:folderId/edit", isAuth, folderController.editFolderGet);
 driveRouter.post("/:folderId/edit", isAuth, folderController.editFolderPost);
 
 //file upload
-
 driveRouter.get("/:folderId", isAuth, folderController.showSubFolders);
-
+driveRouter.get("/single-file/:fileId", isAuth, fileController.fileDetailsGet);
+driveRouter.get(
+  "/single-file/:fileId/download",
+  isAuth,
+  fileController.fileDownload
+);
+driveRouter.get(
+  "/single-file/:fileId/delete",
+  isAuth,
+  fileController.fileDownload
+);
 module.exports = driveRouter;

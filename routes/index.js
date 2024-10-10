@@ -21,7 +21,7 @@ indexRouter.get("/login-failure", (req, res) => {
   });
 });
 indexRouter.get("/logout", indexController.logout);
-indexRouter.get("/drive", isAuth, indexController.driveHomeGet);
+indexRouter.get("/drive", indexController.driveHomeGet);
 
 indexRouter.get("/signup", indexController.signUpGet);
 indexRouter.post("/signup", indexController.signUpPost);

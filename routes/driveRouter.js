@@ -48,6 +48,6 @@ driveRouter.get(
 driveRouter.get(
   "/single-file/:fileId/delete",
   isAuth,
-  fileController.fileDownload
+  fileController.deleteFile
 );
 module.exports = driveRouter;

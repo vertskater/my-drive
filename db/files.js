@@ -39,9 +39,18 @@ const getFileByUuid = async (uuid) => {
   });
 };
 
+const deleteFileByUuid = async (uuid) => {
+  await prisma.file.delete({
+    where: {
+      uuid: uuid,
+    },
+  });
+};
+
 module.exports = {
   saveSingleFile,
   getRootFiles,
   getFilesSubDir,
   getFileByUuid,
+  deleteFileByUuid,
 };

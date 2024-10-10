@@ -131,6 +131,13 @@ header {
                     padding: 1rem;
                 }
             }
+            li.file {
+                background-color: #f3a07c;
+                a:hover {
+                    background-color: #e1684f;
+                    color: var(--light);
+                }
+            }
         }
         a {
             color: var(--dark);

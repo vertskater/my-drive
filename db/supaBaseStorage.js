@@ -22,7 +22,15 @@ const downloadFile = async (bucketName, filepath) => {
   return { data, error };
 };
 
+const deleteFiles = async (bucketName, filepath) => {
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .remove([filepath]);
+  return { data, error };
+};
+
 module.exports = {
   uploadFileToSupaBase,
   downloadFile,
+  deleteFiles,
 };

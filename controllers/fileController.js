@@ -1,7 +1,12 @@
 const dbFiles = require("../db/files");
 const dbFolder = require("../db/folder");
 const dbUser = require("../db/users");
-const { uploadFileToSupaBase, downloadFile } = require("../db/supaBaseStorage");
+const { supabase } = require("../config/supabase");
+const {
+  uploadFileToSupaBase,
+  downloadFile,
+  deleteFiles,
+} = require("../db/supaBaseStorage");
 const { supaBaseAuthWithPassword } = require("../config/supabase");
 
 const uploadFileGet = (req, res, next) => {
@@ -70,9 +75,27 @@ const fileDownload = async (req, res, next) => {
   }
 };
 
+const deleteFile = async (req, res, next) => {
+  const fileUuid = req.params.fileId;
+  if (!fileUuid) return next();
+  try {
+    const file = await dbFiles.getFileByUuid(fileUuid);
+    const { data, error } = await deleteFiles(
+      process.env.BUCKET_NAME,
+      file.cloudPath
+    );
+    if (error) return next(error);
+    await dbFiles.deleteFileByUuid(fileUuid);
+    res.redirect("/drive");
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   uploadFileGet,
   uploadFilePost,
   fileDetailsGet,
   fileDownload,
+  deleteFile,
 };

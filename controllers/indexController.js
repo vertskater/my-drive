@@ -83,13 +83,18 @@ const signUpPost = [
 ];
 
 const driveHomeGet = async (req, res, next) => {
-  const folders = await dbFolders.getRootFolders(req.user.id);
-  const files = await dbFiles.getRootFiles(req.user.id);
-  res.render("drive-home", {
-    title: "My-Drive - Home",
-    folders: folders,
-    files: files,
-  });
+  try {
+    const folders = await dbFolders.getRootFolders(req.user.id);
+    const files = await dbFiles.getRootFiles(req.user.id);
+    res.render("drive-home", {
+      title: "My-Drive - Home",
+      folders: folders,
+      files: files,
+    });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 };
 
 const logout = (req, res, next) => {

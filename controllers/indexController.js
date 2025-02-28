@@ -12,13 +12,13 @@ const validateSchema = [
   body("forename")
     .isAlpha()
     .withMessage(`forename ${alphaError}`)
-    .isLength({ min: 5, max: 30 })
+    .isLength({ min: 3, max: 30 })
     .withMessage(`forename ${lengthError}`)
     .trim(),
   body("surname")
     .isAlpha()
     .withMessage(`surname ${alphaError}`)
-    .isLength({ min: 5, max: 30 })
+    .isLength({ min: 3, max: 30 })
     .withMessage(`surname ${lengthError}`)
     .trim(),
   body("username")
